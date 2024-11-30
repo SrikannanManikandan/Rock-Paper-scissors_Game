@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(175, 189, 185);
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 36px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        #your-choice, #opponent-choice {
+            width: 240px;
+            height: 240px;
+            border: 1px solid black;
+            border-radius: 130px;
+            background-color: white;
+            margin: 0 40px;
+        }
+
+        .score {
+            font-size: 22px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #choices {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 40px;
+            border: 1px solid black;
+            border-radius: 10px;
+            padding: 10px;
+            background-color: white;
+        }
+
+        #choices img {
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Rock Paper Scissors</h1>
+
+    <div class="container">
+        <div class="score">
+            <p>Your Score</p>
+            <h2 id="your-score">0</h2>
+        </div>
+        
+        <img id="your-choice">
+
+        <img id="opponent-choice">
+        
+        <div class="score">
+            <p>Opponent Score</p>
+            <h2 id="opponent-score">0</h2>
+        </div>
+    </div>
+
+    <div id="choices">
+        <h2>Choices</h2>
+    </div>
+
+    <script>
+        var you;
+        var yourScore = 0;
+        var opponent;
+        var opponentScore = 0;
+
+        var choices = ["rock", "paper", "scissors"];
+
+        window.onload = function() {
+            for (let i = 0; i < choices.length; i++) {
+                let choice = document.createElement("img");
+                choice.id = choices[i];
+                choice.src = choices[i] + ".png";
+                choice.addEventListener("click", selectChoice);
+                document.getElementById("choices").append(choice);
+            }
+        }
+
+        function selectChoice() {
+            you = this.id;
+            document.getElementById("your-choice").src = you + ".png";
+
+            opponent = choices[Math.floor(Math.random() * choices.length)];
+            document.getElementById("opponent-choice").src = opponent + ".png";
+
+            if (you === opponent) {
+                yourScore++;
+                opponentScore++;
+            } else {
+                if (
+                    (you === "rock" && opponent === "scissors") ||
+                    (you === "scissors" && opponent === "paper") ||
+                    (you === "paper" && opponent === "rock")
+                ) {
+                    yourScore++;
+                } else {
+                    opponentScore++;
+                }
+            }
+
+            document.getElementById("your-score").innerText = yourScore;
+            document.getElementById("opponent-score").innerText = opponentScore;
+        }
+    </script>
+</body>
+</html>
